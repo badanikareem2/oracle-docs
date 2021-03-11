@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Oracle APEX Installation Documentation</title>
+</head>
+
+<body>
+    <nav id="navbar">
+        <header style="color: black;
+                     margin: 10px;
+                     text-align: center;
+                     font-size: 1.8em;
+                     font-weight: thin; "> Oracle APEX Installation Documentation</header>
+    
+        <ul>
+            <li>
+                <a class="nav-link" href="#Introduction">Introduction</a>
+    
+            </li>
+            <li>
+                <a class="nav-link" href="#Installation_Requirements">Installation Requirements</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Installation_&_Configuration">Installation & Configuration</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Installing_Oracle_REST_Data_Services">Installing Oracle REST Data Services</a>
+    
+            </li>
+            <li>
+                <a class="nav-link" href="#Deploying_ORDS">Deploying ORDS</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Reporting_Server_Installation_and_configuration">Reporting Server Installation
+                    and configuration</a>
+    
+            </li>
+        </ul>
+    </nav>
+    <header style="margin-left: 310px;
+        padding: 20px;
+        background-color: #095dd3;
+        color:white;
+        font-weight: 700;
+        text-align: center;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-family: noto sans,open sans,sans-serif,times new roman,serif;
+        display:block;">
+        <p>Oracle APEX Installation Documentation</p>
+    </header>
+    <main id="main-doc">
+        <!-- section 1 -->
+        <section id="Introduction" class="main-section">
+            <header style="margin-top: 0.3em;
+        margin-bottom: 1.3em; text-align:left; font-size: 1.8em;">
+                Introduction
+            </header>
+    
+            <article>
+                <p>
+                    This guide explains how to install and configure Oracle Application Express v18.2.
+                </p>
+                <p>
+                    This Preface contains these topics:
+                </p>
+                <ul>
+                    <li><a href="#Audience">Audience</a>
+                    </li>
+                    <li><a href="#lab-req">Before we begin</a>
+                    </li>
+                    <li><a href="#Related_Documents">Related Documents</a>
+                    </li>
+                </ul>
+                <h2 id="Audience">Audience</h2>
+                <p>
+                    This Oracle Application Express Installation Guide is intended for anyone responsible for installing
+                    Oracle Application Express in a windows machine.
+                </p>
+                <p>
+                    To use this manual, you must have administrative privileges on the computer where you installed your
+                    Oracle database and familiarity with object-relational database management concepts.
+                </p>
+                <h2 id="lab-req">Before we begin</h2>
+                <p>
+                    In this Demo installation we will install a production environment for Oracle APEX on a Windows machine.
+                    Befor we begin, we have to be sure that we have the following:
+                <ul>
+                    <li>
+                        Oracle Database 11g or later already installed.
+                    </li>
+                    <li>
+                        Oracle Application Express 18.2 zip file.
+                    </li>
+                    <li>
+                        Java JDK package.
+                    </li>
+                    <li>
+                        Oracle REST Data Services (ORDS) zip file.
+                    </li>
+    
+                    <li>
+                        Apache Tomcat windows installer file.
+                    </li>
+                    <li>
+                        Oracle Application Server 10g release 2 Standalone.
+                    </li>
+                </ul>
+                </p>
+                <div>
+                    <p class="note-head">
+                        Note</p>
+                    <p class="note-box"> Most of the Introduction and APEX Installation sections' contents are taken from
+                        ORACLE Installation Docs.</p>
+                </div>
+                <h2 id="Related_Documents">Related Documents</h2>
+                <p>
+                    For more information, see these Oracle resources:
+                </p>
+                <ul>
+                    <li><a href="https://docs.oracle.com/cd/E14373_01/install.32/e13366/toc.htm" target="_blank">Application
+                            Express Installation Guide</a>
+                    </li>
+                    <li><a href="https://docs.oracle.com/cd/E14373_01/admin.32/e13371/toc.htm" target="_blank">Application
+                            Express Administration Guide</a>
+                    </li>
+                    <li><a href="https://docs.oracle.com/cd/E14373_01/appdev.32/e11838/toc.htm" target="_blank">Application
+                            Express Application Builder User's Guide</a>
+                    </li>
+                    <li><a href="https://docs.oracle.com/cd/E14373_01/appdev.32/e13367/toc.htm" target="_blank">Database 2
+                            Day + Application Express Developer's Guide</a>
+                    </li>
+                </ul>
+            </article>
+    
+        </section>
+        <!-- section 2 -->
+        <section id="Installation_Requirements" class="main-section">
+            <header style="margin-top: 1.3em;
+        margin-bottom: 1.3em; text-align:left;  font-size: 1.8em;">
+                Installation Requirements
+            </header>
+            <article>
+                <p>
+                    In order to intsall Oracle Apex, you have to verify that your configuratin meets the folloowing
+                    requirements:
+                </p>
+                <ul>
+                    <li>
+                        <a href="#db-requirements">Oracle Database Requirement</a>
+                    </li>
+                    <li>
+                        <a href="#Browser-requirements">Browser Requirement</a>
+                    </li>
+                    <li>
+                        <a href="#Web-requirements">Web Listener Requirements</a>
+                    </li>
+                    <li>
+                        <a href="#Space-requirements">Disk Space Requirement</a>
+                    </li>
+                </ul>
+                <h2 id="db-requirements">1 Oracle Database Requirement</h2>
+                <p>
+                    Oracle Application Express version 18.2 requires an Oracle database that is release 11.x or later.
+                </p>
+                <h3>
+                    1.2 Checking the MEMORY_TARGET of the Target Database
+                </h3>
+                <p>
+                    Oracle Application Express requires the system global area (SGA) and program global area (PGA) to be at
+                    least 300 MB.
+                </p>
+                <p>
+                    To check the
+                    <code>
+           MEMORY_TARGET
+        </code>
+                    of the target database.
+                </p>
+    
+                <ol>
+                    <li>
+                        <p>Start the database:</p>
+                        <pre>SQL> STARTUP </pre>
+                    </li>
+                    <li>
+                        <p>If necessary, enter the following command to determine whether the system uses an initialization
+                            parameter file (
+                            <code>initsid.ora </code>
+                            ) or a server parameter file (
+                            <code>spfiledbname.ora</code>
+                            ):
+                        </p>
+                        <pre>SQL> SHOW PARAMETER PFILE;</pre>
+                    </li>
+                    <p> This command displays the name and location of the server parameter file or the initialization
+                        parameter file.</p>
+                    <li>
+                        <p>Determine the current values of the
+                            <code>  MEMORY_TARGET</code> parameter:
+                        </p>
+                        <pre>SQL> SHOW PARAMETER MEMORY_TARGET;</pre>
+                    </li>
+                    <li>
+                        <p> If the value is 0, your database is using manual memory management, configure an equivalent
+                            memory size using manual memory management, instead of continuing with the steps that follow.
+                        </p>
+                        If the system is using a server parameter file, set the value of the
+                        <code> MEMORY_TARGET</code> initialization parameter to at least 300 MB:
+                        </p>
+                        <pre> SQL> ALTER SYSTEM SET MEMORY_TARGET='300M' SCOPE=spfile;</pre>
+                    </li>
+                    <li>
+                        <p>If the system uses an initialization parameter file, change the values of the
+                            <code>MEMORY_TARGET</code>
+                            parameter to at least 300 MB in the initialization parameter file (
+                            <code> initsid.ora</code> )
+                        </p>
+                    </li>
+                    <li>
+                        <p>Shut down the database:</p>
+                        <pre> SQL> SHUTDOWN</pre>
+    
+                    <li>
+                        <p>Restart the database:</p>
+                        <pre> SQL> STARTUP</pre>
+                </ol>
+                <h3>2 Browser Requirements </h3>
+                <p>Oracle Application Express requires a JavaScript-enabled browser and supports the current and prior major
+                    release of Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Internet Explorer, and Microsoft
+                    Edge. </p>
+                <h3>3 Web Listener Requirements </h3>
+                <p>In order to run Oracle Application Express you must have access to one of the following listners: </p>
+                <ul>
+                    <li>
+                        <p>Oracle REST Data Services release 3.0.12 or later</p>
+                        <p>
+                            Oracle REST Data Services Listener is a Java-based Web server. It features file system caching,
+                            offers improved file upload capability, and is certified with Oracle WebLogic Server, Oracle
+                            Glassfish Server, and Apache Tomcat.
+    
+    
+                        </p>
+                    </li>
+                    <li>
+                        <p>Embedded PL/SQL gateway</p>
+                        <p>racle XML DB Protocol Server with the embedded PL/SQL gateway installs with Oracle Database 11g
+                            Release 1 (11.1). It provides the database with a Web server and the necessary infrastructure to
+                            create dynamic applications. </p>
+                    </li>
+                    <li>
+                        <p>Oracle HTTP Server and <code>mod_plsql</code>
+                        </p>
+                        <p>Oracle HTTP Server uses the <code>mod_plsql</code> plug-in to communicate with the Oracle
+                            Application Express engine within the Oracle database. </p>
+                    </li>
+                </ul>
+                <h3>4 Disk Space Requirement </h3>
+                <p>Oracle Application Express disk space requirements are as follows: </p>
+                <ul>
+                    <li>
+                        <p>Free space for Oracle Application Express software files on the file system: 310 MB if using
+                            English only download (
+                            <code class="codeph">apex_18.2_en.zip</code> ) and 705 MB if using full download (
+                            <code class="codeph">apex_18.2.zip</code>).
+                        </p>
+                    </li>
+                    <li>
+                        <p>Free space in Oracle Application Express tablespace: 220 MB </p>
+                    </li>
+                    <li>
+                        <p>Free space in <code class="codeph">SYSTEM</code> tablespace: 100 MB </p>
+                    </li>
+                    <li>
+                        <p>Free space in Oracle Application Express tablespace for each additional language (other than
+                            English) installed: 60 MB</p>
+                    </li>
+    
+                </ul>
+            </article>
+        </section>
+        <!-- section 3 -->
+        <section id="Installation_&_Configuration" class="main-section">
+            <header style="margin-top: 0.3em;
+        margin-bottom: 1.3em; text-align:left; font-size: 1.8em;">
+                Installation & Configuration
+            </header>
+            <article>
+                <p>
+                    Before Installing, you must verify that your configuration meets the minimum requirements as mentioned
+                    above.
+                </p>
+                <h2 id="down-install">Downloading and Installing Oracle Application Express </h2>
+                <p>
+                    To install Oracle Application Express:
+                </p>
+                <ol>
+                    <li>
+                        <p>
+                            Download Oracle Application Express ZIP file from <a
+                                href="http://www.oracle.com/technetwork/developer-tools/apex/downloads/index.html"> download
+                                Page</a>
+                        </p>
+                        <p>
+                            For installations where the development will be in English only, download the file <code
+                                class="codeph">apex_18.2_en.zip</code>. If the development will include languages other than
+                            English, download <code class="codeph">apex_18.2.zip</code> file.
+                        </p>
+                    </li>
+    
+                    <li>
+                        <p>
+                            Unzip downloaded zip file to your local directory. for example <code>C:/</code> .
+                        </p>
+                    </li>
+    
+                    <li>
+                        <p>
+                            Open your command line tool and Change your working directory to the directory on whcih you
+                            unzip APEX file. in our Case <code> C:\APEX</code>.
+                        <pre>  C:\Users\user>cd ..   
+      C:\Users>cd .. 
+      C:> cd apex
+      C:\apex</pre>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Open SQL*Plus from the command tool and connect to the database as <code>sysdba</code>. Another
+                            way is to start SQL*Plus in APEX directory.
+                        </p>
+                        <pre>
+      C:\apex>sqlplus sys as sysdba
+      Enter password: <i>SYS_password</i>
+      SQL></pre>
+    
+                    </li>
+                    <li>
+                        <p>
+                            Select the appropriate installation option.
+                        </p>
+                        <p>
+                            You have two choices: Full development environment and Runtime environment
+                        </p>
+                        <p>
+                            <strong>Full development environment</strong> provides complete access to the App Builder
+                            environment to develop applications. A <strong>Runtime environment</strong> enables users to run
+                            applications that cannot be modified.
+                        </p>
+                    </li>
+    
+                    <ul>
+                        <h3>Full development environment. </h3>
+                        <li>
+                            <p>
+                                Run The <code class="codeph">apexins.sql</code> file with its four arguments:
+                            </p>
+                            <pre>SQL>@apexins.sql <i>tablespace_apex</i> <i>tablespace_files</i> <i>tablespace_temp</i> images </pre>
+                            <p> Where:</p>
+                            <ul>
+                                <li><i><code class="codeph">tablespace_apex</code></i> is the name of the tablespace for the
+                                    Oracle Application Express application user.</li>
+                                <li><i><code class="codeph">tablespace_files</code></i> is the name of the tablespace for
+                                    the Oracle Application Express files user.</li>
+                                <li><i><code class="codeph">tablespace_temp</code></i> is the name of the temporary
+                                    tablespace or tablespace group.</li>
+                                <li><i><code class="codeph">images</code></i> is the virtual directory for Oracle
+                                    Application Express images. For installations using EPG, /<code class="codeph">i</code>/
+                                    is the required value for the images argument. To support future Oracle Application
+                                    Express upgrades, define the virtual image directory as /<code class="codeph">i</code>/.
+                                </li>
+                            </ul>
+                            <p>Example: </p>
+                            <pre>SQL>@apexins.sql SYSAUX SYSAUX TEMP /i/</pre>
+                        </li>
+                    </ul>
+                    <h3>Runtime environment.</h3>
+                    <ul>
+                        <li>
+                            <p>
+                                Run The <code class="codeph"> apxrtins.sql</code> file with its four arguments as described
+                                above.
+                            </p>
+                            <p>Example: </p>
+                            <pre>SQL>@apxrtins.sql SYSAUX SYSAUX TEMP /i/</pre>
+                        </li>
+                    </ul>
+                    <li>
+                        <p>
+                            After the installation is completed reconnect again to the database using SQL*Plus using
+                            <code>sys as sysdba</code> and run the below commands.
+                        </p>
+                        <pre>
+      C:\apex>sqlplus sys as sysdba
+      Enter password: SYS_password
+      SQL></pre>
+                        <p>Run <code class="codeph">apex_epg_config.sql</code> passing the file system path to the base
+                            directory where the Oracle Application Express software was unzipped as shown in the following
+                            example:
+                        </p>
+                        <pre> SQL>@apex_epg_config.sql C:</pre>
+                        <p>where <code>C:</code> is the base directory where the Oracle Application Express software was
+                            unzipped. </p>
+                    </li>
+                    <li>
+                        <p>Run the <code class="codeph">apxchpwd.sql</code> script to create and update APEX Instance
+                            Administrator account. For example:</p>
+                        <pre>SQL>@apxchpwd.sql
+      Enter the administrator's username [ADMIN]
+      Enter ADMIN's email [ADMIN]
+      Enter ADMIN's password []<i><code>type the password here</code></i>
+    </pre>
+                    </li>
+                    <li>
+                        <p>Configuring the <code class="codeph">APEX_PUBLIC_USER</code> Account.</p>
+                        <p>The <code class="codeph">APEX_PUBLIC_USER</code> Account is created with a random password in a
+                            new installation of Oracle Application Express. So, you must change the password and unlock the
+                            account. For Example:</p>
+                        <pre>SQL>ALTER USER APEX_PUBLIC_USER IDENTIFIED BY <code><i>new_password </i></code> ACCOUNT UNLOCK;</pre>
+                        <p>Also, unlock the <code>Anonymous</code> account as below.</p>
+                        <pre>SQL>ALTER USER ANONYMOUS ACCOUNT UNLOCK;</pre>
+                    </li>
+                </ol>
+                <p>Now you can login, locally, to the Oracle APEX Administartion by typing the below URL:</p>
+                <p>
+                    <code>
+       <a  href="http://localhost:8080/apex" target="_blank">http://localhost:8080/apex</a>
+    </code>
+                </p>
+            </article>
+        </section>
+        <!-- section 4 -->
+        <section id="Installing_Oracle_REST_Data_Services" class="main-section">
+            <header style="margin-top: 0.3em;
+        margin-bottom: 1.3em; text-align:left; font-size: 1.8em;">
+                Installing Oracle REST Data Services
+            </header>
+            <article>
+                <p>
+                    In previous section, we describe how to install Oracle Application Express in a on-premises (or local)
+                    installation. In this section, we will describe how to deploy Oracle Application Express on a Web server
+                    using Oracle REST Data Services (ORDS).
+                </p>
+                <p>
+                    This section will contains the following topics:
+                <ul>
+                    <li>
+                        <a href="#ords-pre">Installation prerequisits</a>
+                    </li>
+                    <li>
+                        <a href="#ords-ins">Installing Oracle REST Data Services</a>
+                    </li>
+                    <li>
+                        <a href="#Tomcat-ins">Installing Web Server (Tomcat)</a>
+                    </li>
+                    <li>
+                        <a href="#ORDS-DEPLOY">Deploying Oracle REST Data Services</a>
+                    </li>
+                </ul>
+                </p>
+                <h2 id="ords-pre">Installation Prerequisits</h2>
+                <p>Before Installing Oracle REST Data Services, you have to be sure that the following prerequisits are
+                    already installed:
+                <ol>
+                    <li>
+                        <p>Oracle Database at least 11.2.0.4 or later. Or you can install Oracle XE version 11 or later.</p>
+                    </li>
+                    <li>
+                        <p>Oracle Application Express version 18.2.</p>
+                    </li>
+                    <li>
+                        <p>Java JDK package. you can download it from <a
+                                href="https://www.oracle.com/technetwork/java/javase/downloads/index.html"
+                                target="_blank">Download site.</a></p>
+                    </li>
+                </ol>
+                </p>
+                <h2 id="ords-ins">Installing Oracle REST Data Services</h2>
+                <p>To Install Oracle REST Data Services:
+                <ol>
+                    <li>Download the latest release of Oracle REST Data Services from the following site: </li>
+                    <code>
+       <a href="http://www.oracle.com/technetwork/developer-tools/rest-data-services/downloads/index.html" target="_blank">http://www.oracle.com/technetwork/developer-tools/rest-data-services/downloads/index.html</a>
+    </code>
+                    <li>Unzip the downloaded zip file into a directory (or folder) of your choice:
+                        <ul>
+                            <li>
+                                <p>Create a folder in a local drive. For example: <code>C:\ORDS</code> </p>
+                            </li>
+                            <li>
+                                <p>Unzip <code>ords.war</code> file from the downloaded zip file to the folder
+                                    <code>C:\ORDS</code>.
+                                </p>
+                            </li>
+                            <li>
+                                <p>Create sub-folder in <code>C:\ORDS</code> folder and give it a name (For example:
+                                    <code>conf</code>) for the purpose of storing the configuration of <code
+                                        class="codeph">ORDS</code>.
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Grant full control permisions to <code>USERS</code> and <code> ALL APPLICATION PACKAGES</code> on
+                        Java JDK path:
+                        <ul>
+                            <li>
+                                <p>
+                                    Go to Java JDK path For example:</p>
+                                <p>
+                                    <code class="codeph">C:\Program Files\Java\jdk<code>x.x.x</code></code>
+                                </p>
+                                <p> where <code>x.x.x</code> is the version of the JDK.</p>
+                            </li>
+                            <li>
+                                In the directory path, you will find a folder named <code>bin </code>. Right click on
+                                <code>bin </code> and go to <code>Security</code> tab and click on <code>Edit</code> and
+                                grant <code class="codeph">full control</code> to <code>USERS</code> and
+                                <code> ALL APPLICATION PACKAGES</code> groups.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>
+                            Add Java path to system invironment:
+                        <ul>
+                            <li>
+                                <p>
+                                    Right click on Computer icon.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Click on <code>Advanced System Settings</code>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Click on <code>Environment Variables</code>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Under <code>User Variables</code> add new variable and give it a name of
+                                    <code>JAVA_HOME</code> and the value must be Java JDK path for example:
+    
+                                    <code class="codeph">C:\Program Files\Java\jdk<code>x.x.x</code>\bin</code>
+                                </p>
+                                <p> where <code>x.x.x</code> is the version of the JDK.</p>
+                            </li>
+                        </ul>
+                        </p>
+                    </li>
+    
+                    </p>
+                    </li>
+                    </p>
+                    <li>
+                        <p>
+                            Open the <code>command line</code> tool and change the directory to the JAVA_PATH (the path you
+                            set in step 4). For example:
+                        </p>
+                        <pre>  C:\Users\user>cd C:\Program Files\Java\jdk<code>x.x.x</code>\bin</code>  
+      C:\Program Files\Java\jdk<code>x.x.x</code>\bin></pre>
+                    </li>
+                    <li>
+                        <p>Now we get the environment ready to install ORDS. To install ORDS follow the steps below:</p>
+                        <ul>
+                            <li>
+                                <p>Install ords.war by running the command <code
+                                        class="codeph">java -jar <code ><i>ORDS.WAR PATH</i></code></code>. In our case, it
+                                    is <code class="codeph">C:\ords\ords.war </code> For example:
+                                </p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war</pre>
+                                <p>after this command, we have to complete the following prompts</p>
+                            </li>
+                            <li>
+                                <p>The location to store configuration data. In our case it is: <code>C:\ords\conf</code> as
+                                    created in step 2. For example:</p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war
+    Enter the location to store configuration data:<code>C:\ords\conf</code></pre>
+                            </li>
+                            <li>
+                                <p>The database server, port and service/SID. as shown below</p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war
+    Enter the location to store configuration data:<code>C:\ords\conf</code>
+    Enter the name of the database server [localhost]:
+    Enter the database listen port [1521]:
+    Enter 1 to specify the database service name, or 2 to specify the database SID [1]:
+    Enter the database service name:<code>orcl</code></pre>
+                                <p>In above prompts we choose default options for Database server as <code>localhost</code>,
+                                    default port <code>1521</code> and default Service/SID <code>1</code> and type the
+                                    service name which is in our case: <code>orcl</code>.</p>
+                            </li>
+                            <li>
+                                <p>Install Oracle REST Data Services schema</p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war
+    Enter the location to store configuration data:C:\ords\conf
+    Enter the name of the database server [localhost]:
+    Enter the database listen port [1521]:
+    Enter 1 to specify the database service name, or 2 to specify the database SID [1]:
+    Enter the database service name:orcl
+    Enter 1 if you want to verify/install Oracle REST Data Services schema or 2 to skip this step [1]:<code>1</code>
+    Enter the database password for ORDS_PUBLIC_USER:<code><i>password </i></code>
+    password:<code><i>password </i></code></pre>
+                            </li>
+    
+                            <li>
+                                <p>
+                                    Provide sys password in order to install Oracle REST Data Services schema:
+                                </p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war
+    Enter the location to store configuration data:C:\ords\conf
+    Enter the name of the database server [localhost]:
+    Enter the database listen port [1521]:
+    Enter 1 to specify the database service name, or 2 to specify the database SID [1]:
+    Enter the database service name:orcl
+    Enter 1 if you want to verify/install Oracle REST Data Services schema or 2 to skip this step [1]:<code>1</code>
+    Enter the database password for ORDS_PUBLIC_USER:
+    Confirm password:
+    Requires SYS AS SYSDBA to verify Oracle REST Data Services schema.
+    Enter the database password for SYS AS SYSDBA:<code><i>sys_password </i></code>
+    Confirm password:<code><i>sys_password </i></code></pre>
+                            </li>
+                            <li>
+                                <p>Specify passwords for the users: <code>APEX_PUBLIC_USER</code>,
+                                    <code>APEX_LISTENER</code>, <code>APEX_REST_PUBLIC_USER</code> as shown below:
+                                </p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war
+    Enter the location to store configuration data:C:\ords\conf
+    Enter the name of the database server [localhost]:
+    Enter the database listen port [1521]:
+    Enter 1 to specify the database service name, or 2 to specify the database SID [1]:
+    Enter the database service name:orcl
+    Enter 1 if you want to verify/install Oracle REST Data Services schema or 2 to skip this step [1]:<code>1</code>
+    Enter the database password for ORDS_PUBLIC_USER:
+    Confirm password:
+    Requires SYS AS SYSDBA to verify Oracle REST Data Services schema.
+    Enter the database password for SYS AS SYSDBA:
+    Confirm password:
+    <br>
+    Enter 1 if you want to use PL/SQL Gateway or 2 to skip this step.
+    If using Oracle Application Express or migrating from mod_plsql then you must enter 1 [1]:<code> 1 </code>
+    Enter the PL/SQL Gateway database user name [APEX_PUBLIC_USER]: 
+    Enter the database password for APEX_PUBLIC_USER:<code><i>Password</i></code>
+    Confirm password:<code><i>Password</i></code>
+    Enter 1 to specify passwords for Application Express RESTful Services database users (APEX_LISTENER, APEX_REST_PUBLIC_USER) or 2 to skip this step [1]:<code> 1 </code>
+    Enter the database password for APEX_LISTENER:<code><i>Password</i></code>
+    Confirm password:<code><i>Password</i></code>
+    Enter the database password for APEX_REST_PUBLIC_USER:<code><i>Password</i></code>
+    Confirm password:<code><i>Password</i></code></pre>
+                                <div>
+                                    <p class="note-head">
+                                        Note</p>
+                                    <p class="note-box"> Keep the passwords you specify above and the password you specify
+                                        for <code>ORDS_PUBLIC_USER</code> for we will need them in next steps.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <p>Choose Web Server mode. In our case we will use Tomcat, so we will specify
+                                    <code> 2 </code>.
+                                </p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war
+    Enter the location to store configuration data:C:\ords\conf
+    Enter the name of the database server [localhost]:
+    Enter the database listen port [1521]:
+    Enter 1 to specify the database service name, or 2 to specify the database SID [1]:
+    Enter the database service name:orcl
+    Enter 1 if you want to verify/install Oracle REST Data Services schema or 2 to skip this step [1]:<code>1</code>
+    Enter the database password for ORDS_PUBLIC_USER:
+    Confirm password:
+    Requires SYS AS SYSDBA to verify Oracle REST Data Services schema.
+    Enter the database password for SYS AS SYSDBA:
+    Confirm password:
+    <br>
+    Enter 1 if you want to use PL/SQL Gateway or 2 to skip this step.
+    If using Oracle Application Express or migrating from mod_plsql then you must enter 1 [1]:
+    Enter the PL/SQL Gateway database user name [APEX_PUBLIC_USER]: 
+    Enter the database password for APEX_PUBLIC_USER:
+    Confirm password:
+    Enter 1 to specify passwords for Application Express RESTful Services database users (APEX_LISTENER, APEX_REST_PUBLIC_USER) or 2 to skip this step [1]:
+    Enter the database password for APEX_LISTENER:
+    Confirm password:
+    Enter the database password for APEX_REST_PUBLIC_USER:
+    Confirm password:
+    <br>
+    Enter 1 if you wish to start in standalone mode or 2 to exit [1]:<code> 2 </code></pre>
+                            </li>
+                            <li>
+                                <p>Configuring Oracle Application Express Images. Use the static command to create a web
+                                    archive file named <code class="codeph">i.war </code>.</p>
+                                <code class="codeph">java -jar ords.war static [apex directory]\images</code>
+                                <p>In our case [apex directory] is <code>C:/apex</code>. The command will be:</p>
+                                <pre>C:\Program Files\Java\jdk<code>x.x.x</code>\bin>java -jar C:\ords\ords.war static <code>C:\apex\images</code></pre>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p> Configure RESTful Services in Oracle Application Express:</p>
+                        <ul>
+                            <li>
+                                <p>
+                                    Open your command line tool and Change your working directory to the directory on whcih
+                                    you unzip APEX file. in our Case <code> C:\APEX</code>.
+                                <pre>  C:\Users\user>cd ..   
+      C:\Users>cd .. 
+      C:> cd apex
+      C:\apex</pre>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Open SQL*Plus from the command tool and connect to the database as <code>sysdba</code>.
+                                    Another way is to start SQL*Plus in APEX directory.
+                                </p>
+                                <pre>
+      C:\apex>sqlplus sys as sysdba
+      Enter password: <i>SYS_password</i>
+      SQL></pre>
+    
+                            </li>
+                            <li>
+                                <p>Run <code class="codeph">apex_rest_config.sql</code>. For example:</p>
+                                <pre>SQL>@apex_rest_config.sql</pre>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Change the passwords for the users: <code>APEX_PUBLIC_USER</code>, <code>APEX_LISTENER</code>,
+                            <code>APEX_REST_PUBLIC_USER</code>
+                            and <code>ORDS_PUBLIC_USER</code> as the passwords you specified in step 6 and unlock the
+                            accounts as well. For example:
+                        </p>
+                        <pre>SQL> alter user APEX_PUBLIC_USER identified by <code>password</code> account unlock;
+    User altered
+    SQL> alter user APEX_LISTENER identified by <code>password</code> account unlock;
+    User altered
+    SQL> alter user APEX_REST_PUBLIC_USER identified by <code>password</code> account unlock;
+    User altered
+    SQL> alter user ORDS_PUBLIC_USER identified by <code>password</code> account unlock;
+    User altered
+    </pre>
+                    </li>
+                </ol>
+            </article>
+        </section>
+    
+    
+        <!-- section 5 -->
+        <section id="Deploying_ORDS" class="main-section">
+            <header style="margin-top: 0.3em;
+        margin-bottom: 1.3em; text-align:left; font-size: 1.8em;">
+                Deploying ORDS
+            </header>
+            <article>
+                <p>
+                    After Installing ORDS, now we will depoly the <code>ords.war</code> to a web server, <b>Apache
+                        Tomcat</b>, in this section.
+                </p>
+                <p>
+                    This section Contains the following topics:
+                <ul>
+                    <li>
+                        <p><a href="#Apache-install">Installing the Apache Tomcat</a></p>
+                    </li>
+                    <li>
+                        <p><a href="#deploy_to_tomcat">Deploying ORDS to Apache Tomcat</a></p>
+                    </li>
+                </ul>
+                </p>
+                <h2 id="Apache-install">Installing the Apache Tomcat</h2>
+                To Install Apache Tomcat:
+                <ol>
+                    <li>
+                        <p>Download the latest release of Apache Tomcat, <code>Windows Installer</code>, from the download
+                            site:
+                    </li>
+                    <code>
+       <a href="https://tomcat.apache.org/download-90.cgi" target="_blank">https://tomcat.apache.org/download-90.cgi</a>
+    </code></p>
+                    </li>
+                    <li>
+                        <p>Install Apache Tomcat windows installer:
+                        <ul>
+                            <li>Luanch the <code>exe installer</code> you downloaded and click <code>Next</code>
+                                <a href="#"><img class="img-view"
+                                        src="https://github.com/badanikareem2/images2/blob/master/tomcat-01.png?raw=true"
+                                        alt="tomcat-01"></a>
+                            </li>
+                            <br>
+                            <li>Read the terms of agreement and click <code>I Agree</code>
+                                <a href="#"><img class="img-view"
+                                        src="https://github.com/badanikareem2/images2/blob/master/tomcat-02.png?raw=true"
+                                        alt="tomcat-02"></a>
+                            </li>
+                            <br>
+                            <li>click on <code>Next</code>
+                                <a href="#"><img class="img-view"
+                                        src="https://github.com/badanikareem2/images2/blob/master/tomcat-03.png?raw=true"
+                                        alt="tomcat-03"></a>
+                            </li>
+                            <br>
+                            <li>In this Screen, be sure to change <code class="codeph">HTTP/1.1 Connector Port</code> from
+                                its default value <code>8080</code> to another value. In our case, changed to
+                                <code>9090</code>. Also, specify <code
+                                    class="codeph">Tomcat Administrator Login Username & Password</code>:
+                                <a href="#"><img class="img-view"
+                                        src="https://github.com/badanikareem2/images2/blob/master/tomcat-04-02.png?raw=true"
+                                        alt="tomcat-04"></a>
+                            </li>
+                            <br>
+                            <li>click on <code>Next</code>
+                                <a href="#"><img class="img-view"
+                                        src="https://github.com/badanikareem2/images2/blob/master/tomcat-05.png?raw=true"
+                                        alt="tomcat-05"></a>
+                            </li>
+                            <br>
+                            <li>click on <code>Install</code>
+                                <a href="#"><img class="img-view"
+                                        src="https://github.com/badanikareem2/images2/blob/master/tomcat-06.png?raw=true"
+                                        alt="tomcat-06"></a>
+                            </li>
+                            <br>
+                            <li>click on <code>Finish</code>
+                                <a href="#"><img class="img-view"
+                                        src="https://github.com/badanikareem2/images2/blob/master/tomcat-07.png?raw=true"
+                                        alt="tomcat-07"></a>
+                            </li>
+                        </ul>
+                        </p>
+                    </li>
+                </ol>
+    
+                <h2 id="deploy_to_tomcat">Deploying ORDS to Apache Tomcat</h2>
+                <p>To deploy <code>ords.war</code> to the web server:
+                <ul>
+                    <li>
+                        <a href="#copy-ords">copy <code>ords.war</code> from <code>ORDS</code> path to the web server
+                            webapps folder.</a>
+                    </li>
+                    <li>
+                        <a href="#copy-images">copy <code>Images</code> folder contents from <code>APEX</code> to the web
+                            server webapps folder.</a>
+                    </li>
+                </ul>
+                </p>
+                <h3 id="#copy-ords">Deplying ORDS to Apache Tomcat:</h3>
+                <ol>
+                    <li>
+                        <p>Go to <code class="codeph">ORDS path</code> in which you install ords. In our case:
+                            <code>C:\ords</code>.
+                        </p>
+                    </li>
+                    <li>
+                        <p>Copy <code class="codeph">ords.war</code> file to the Web server <code>webapps</code> folder:</p>
+                        <p>
+                        <pre><i>Apache Tomcat Directory\</i>webapps</pre>
+                        For example: go to <code>C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps</code>
+                        and paste the <code class="codeph">ords.war</code> file in this path.</p>
+                    </li>
+                    <li>
+                        <p>Go to <code class="codeph">APEX Images path</code> inside APEX installation folder. In our case:
+                            <code>C:\apex\images</code>.
+                        </p>
+    
+                    </li>
+                    <li>
+                        <p>Inside Web server <code>webapps</code> folder, create a new folder and name it <code>i</code>.
+                        </p>
+                    </li>
+                    <li>
+                        <p>Copy <code class="codeph">all images folder contents</code> to the <code> i </code> folder inside
+                            <code>webapps</code> folder you created in previous step:
+                        </p>
+                        <p>
+                        <pre><i>Apache Tomcat Directory\</i>webapps\i</pre>
+                        For example: go to
+                        <code>C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps\i</code> and paste the
+                        images contnts in this path.</p>
+                    </li>
+                    <li>
+                        <p>Restart Apache Tomcat Service:
+                        <ul>
+                            <li>
+                                <p>Go to <code class="codeph">Apache Tomcat Directory\bin</code> and open <code
+                                        class="codeph">Tomcat<code>X</code>w</code>.
+                                </p>
+                                <p>where <code>X</code> is the version of Apache Tomcat installed.</p>
+                                <p>Example:</p>
+                                <ul>
+                                    <li> In our case,
+                                        go to: <code>C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\bin</code>
+                                        and open <code>Tomcat9w.exe</code> execution file.
+                                    </li>
+                                    <li>
+                                        Click on <code>Stop</code> then click on <code>Start</code> or click on
+                                        <code>Start</code> if it is already stoped.
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <a href="#"><img class="img-view"
+                                                src="https://github.com/badanikareem2/images2/blob/master/Tomcat-stop.png?raw=true"
+                                                alt="tomcat-stop"></a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <a href="#"><img class="img-view"
+                                                src="https://github.com/badanikareem2/images2/blob/master/Tomcat-start.png?raw=true"
+                                                alt="tomcat-start."></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <p>You can now open Oracle Oracle Application Express using Oracle REST Data Services using the url:
+                        </p>
+                        <pre>http://<i>Host</i>:<i>Web server port</i>/<i>ords.war file name</i>/</pre>
+                        Where:
+                        <ul>
+                            <li>
+                                <code class="codeph"><i>Host</i></code>: is the host on which you installed Oracle APEX. It
+                                can be the machine name or IP address. In our case we will use <code>localhost</code>.
+                            </li>
+                            <li>
+                                <code class="codeph"><i>Web server port</i></code>: is the port of the installed web server.
+                                In our case it is <code>9090</code> as configured during Tomcat installation.
+                            </li>
+                            <li>
+                                <code class="codeph"><i>ords.war file name</i></code>: is the name of <code>ords.war</code>
+                                file. In our case it is: <code>ords</code>.
+                            </li>
+                        </ul>
+                        <p> Example:</p>
+                        <pre><a color:white;href="http://localhost:9090/ords">http://localhost:9090/ords</a></pre>
+                    </li>
+                </ol>
+            </article>
+        </section>
+        <!-- 6 -->
+        <section id="Reporting_Server_Installation_and_configuration" class="main-section">
+            <header style="margin-top: 0.3em;
+        margin-bottom: 1.3em; text-align:left; font-size: 1.8em;">
+                Reporting Server Installation and configuration
+            </header>
+            <article>
+                <p>
+                    Part of this manual is to configure a Reporting server. In this manual, we choose to use Oracle
+                    Application Server 10g 10.1.2.0.2 as our production environment use <code>.rdf</code> reports that
+                    designed in Oracle Report Builder.
+                </p>
+                <p>
+                    In this section the following topics will be covered:
+                <ul>
+                    <li>
+                        <a href="#AS-download">Downloading Oracle Application Server 10g.</a>
+                    </li>
+                    <li>
+                        <a href="#AS-install">Installing Oracle Application Server 10g.</a>
+                    </li>
+                    <li>
+                        <a href="#AS-configure">Configuring Oracle Application Server 10g.</a>
+                    </li>
+                    <li>
+                        <a href="#rdf-call">Call .rdf report from APEX using Application Server.</a>
+                    </li>
+                </ul>
+                </p>
+                <h2 id="AS-download">Downloading Oracle Application Server 10g. </h2>
+                <p>You can download Downloading Oracle Application Server 10g from the link below:</p>
+                <a href="http://www.mediafire.com/file/ylpv2q9b7mh71ac/app_server_div10g.rar/file"
+                    target="_blank">http://www.mediafire.com/file/ylpv2q9b7mh71ac/app_server_div10g.rar/file</a>
+    
+                <h2 id="AS-install">Installing Oracle Application Server 10g.</h2>
+                <p>Follw below step by step instructions to install Oracle Application Server:
+                <ul>
+                    <li>Go to the directory on which you downloaded the Application server file and run the
+                        <code>setup</code> as administrator
+                    </li>
+                    <li>Once the welcome interface opened click on <code>Next</code>
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_01.png?raw=true" alt="AS_01"></a>
+                    </li>
+                    <br>
+                    <li>Specify the full path where you want to install the Applcation Server click on <code>Next</code>.
+                        For example:
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_02.png?raw=true" alt="AS_02"></a>
+                    </li>
+                    <br>
+                    <li>If a warning poped up as below image, just click <code>Ok</code>
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_02_01.png?raw=true"
+                                alt="AS_02_01"></a>
+                    </li>
+                    <br>
+                    <li>Select the languages you want to use in your reports and click on <code>Next</code>. For example:
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_03.png?raw=true" alt="AS_03"></a>
+                    </li>
+                    <br>
+                    <li>In <code class="codeph">Specify Port Configuration Options</code> step, select
+                        <code>Automatic</code> and click on<code> Next</code>. For example:
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_04.png?raw=true" alt="AS_04"></a>
+                    </li>
+                    <br>
+                    <li>In <code class="codeph">Provide Outgoing Mail Server Information</code> step, s click
+                        on<code> Next</code>. For example:
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_05.png?raw=true" alt="AS_05"></a>
+                    </li>
+                    <br>
+                    <li>Specify Instance Name and ias_admin password. For example:
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_06.png?raw=true" alt="AS_06"></a>
+                    </li>
+                    <br>
+                    <li>Click on Install
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_07.png?raw=true" alt="AS_07"></a>
+                    </li>
+                    <br>
+                    <li>You may encounter an error like below image. Just click <code>Ok</code>.
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_08.png?raw=true" alt="AS_08"></a>
+                    </li>
+                    <br>
+                    <li>Click on <code>Retry</code> and click on <code>Next</code> after that.
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_09.png?raw=true" alt="AS_09"></a>
+                    </li>
+                    <br>
+                    <li>Save the <code>url</code> to log in to the Application server Enterprise Manager and click on
+                        <code>Exit</code>
+                        <a href="#"><img class="img-view"
+                                src="https://github.com/badanikareem2/images2/blob/AS/AS_10.png?raw=true" alt="AS_10"></a>
+                    </li>
+                    <br>
+                    <li>Now you can access Application server Enterprise Manager using the Url:
+                    </li>
+                    <pre>http://<i>Host</i>:<i>APPLICATION_SERVER_PORT</i></pre>
+                    <p>Where:</p>
+                    <ul>
+                        <li><code class="codeph">HOST</code>: is the machine name or IP address on which the Application
+                            Server installed.</li>
+                        <li><code class="codeph">APPLICATION_SERVER_PORT</code>: is the port of the Application Server
+                            installed. It is <code>18100</code> by default. For example:
+                            <a href="http://localhost:18100">http://localhost:18100</a>
+                        </li>
+                    </ul>
+                </ul>
+                </p>
+                <h2 id="AS-configure">
+                    Configuring Oracle Application Server 10g
+                </h2>
+                <p>In this section we will cover the following topics:
+                <ul>
+                    <li>
+                        <a href="#AS-conn">Connect Application Server to the Database.</a>
+                    </li>
+                    <li>
+                        <a href="#url-map">Map APEX Parsing schema with Application Server.</a>
+                    </li>
+                    <li>
+                        <a href="#call-url">Run reports from APEX Application.</a>
+                    </li>
+                </ul>
+                </p>
+                <h3 id="AS-conn">Connect Application Server to the Database. </h3>
+                <p>To connect the Application server to a database by adding the connection string of the target database to
+                    the <code>tnsnames.ora</code> file in the Application Server TNS Directory:
+                <ul>
+                    <li>
+                        <p>Go to the Application server TNS Directory:</p>
+                        <p><code><i>Application_Server_Directory</i></code><code class="codeph">\Network\Admin</code>
+                        </p>
+                        <p>In our case <code><i>Application_Server_Directory</i></code> is: <code
+                                class="codeph">D:\oracle\FRHome_1</code> as installed in previous steps:
+                        <pre>D:\oracle\FRHome_1\Network\Admin</pre>
+                    </li>
+                    <li>
+                        <p>Open <code>tnsnames.ora</code> and add the connection string. For example:</p>
+                        <p>
+                        <pre style="background-color: #ffffff;
+        color: #000;
+    ">
+      <code>XE</code> =
+      (DESCRIPTION =
+        (ADDRESS = (PROTOCOL = TCP)(HOST = <code>localhost</code>)(PORT = <code>1521</code>))
+        (CONNECT_DATA =
+          (SERVER = DEDICATED)
+          (SERVICE_NAME = <code>XE</code>)
+        )
+      )   </pre>
+                        </p>
+    
+                    </li>
+                </ul>
+                </p>
+                <h3 id="url-map">Map APEX Parsing schema with Application Server. </h3>
+                <p>
+                    To run <code>.rdf</code> report from Apex application, you have to do the following:
+                <ul>
+                    <li>
+                        <p>Map Apex parsing schema with the Application server and to do that add the mapping string to the
+                            mapping file <code>cgicmd.dat</code>:
+                        <ol>
+                            <li>
+                                <p>Go to the mapping file Directory:</p>
+                                <pre style="background-color: #ffffff;
+        color: #000;
+    ">
+    <i>Application_Server_Directory</i>\reports\conf</code>
+    </pre>
+                                <p>In our case <code><i>Application_Server_Directory</i></code> is: <code
+                                        class="codeph">D:\oracle\FRHome_1</code> as installed in previous steps. So the
+                                    directory will be:</p>
+                                <pre>
+    D:\oracle\FRHome_1\reports\conf
+    </pre>
+                            </li>
+                            <li>
+                                Open Mapping file: <code>cgicmd.dat</code> and add the mapping string at the last line of
+                                the mapping file:
+                                <pre style="background-color: #ffffff;
+        color: #000;
+    ">
+    <i>Key_name</i>: userid=<i>APEX_Parsing_Schema/Schema_Password@Service_Name</i> destype=<i>destype</i> desformat=<i>desformat</i> paramform=no %* 
+    </pre>
+                                <p>Where:
+                                <ul>
+                                    <li>
+                                        <code class="codeph"><i>Key_name</i></code>: is th key name. It is named as
+                                        <code>test_key</code> in our demo. You can specify any name you want.
+                                    </li>
+                                    <li>
+                                        <code class="codeph"><i>APEX_Parsing_Schema/Schema_Password@Service_Name</i></code>:
+                                        is the parsing schema connection string. In our demo it is:
+                                        <code>test_user/123@xe</code>
+                                    </li>
+                                    <li>
+                                        <code class="codeph"><i>destype</i></code>: specify it as <code>cache</code>
+                                    </li>
+                                    <li>
+                                        <code class="codeph"><i>desformat</i></code>: specify it as <code>pdf</code>
+                                    </li>
+                                    <li>
+                                        <code class="codeph"><i>paramform</i></code>: specify it as <code>no</code>
+                                    </li>
+                                    <li>
+                                        <code class="codeph"><i>%*</i></code>: means entire contents (all arguments) from
+                                        orginal rwservlet URL request.
+                                    </li>
+                                </ul>
+                                </p>
+                                <p> In our demo the connection string will be:</p>
+                                <pre>
+    test_key: userid=test_user/123@xe destype=cache desformat=pdf paramform=no %*
+    </pre>
+                            </li>
+                        </ol>
+                        </p>
+                    </li>
+                </ul>
+                </p>
+                <h3 id="call-url">Run reports from APEX Application. </h3>
+                <p>To run <code>.rdf</code> reports from APEX, we have to call the <code>.rdf</code> file using rwservlet
+                    url with its parameters. The rwservlet url syntax is:</p>
+                <pre style="background-color: #ffffff;
+        color: #000;
+    ">
+    <i>APPLICATION_SERVER_IP_ADDRESS</i>:<i>REPORTS_SERVER_PORT</i>/reports/rwservlet?<i>MAPPING_KEY</i>&report=<i>RDF_REPORT_NAME</i>&<i>REPORT_PARAMETER=VALUE</i>
+    </pre>
+                <P>Where:</P>
+                <ul>
+                    <li>
+                        <p><code class="codeph">APPLICATION_SERVER_IP_ADDRESS</code>: is the Application server Machine name
+                            or IP Address. In our case it is <code>10.10.0.100</code></p>
+                    </li>
+                    <li>
+                        <p><code class="codeph">REPORTS_SERVER_PORT</code>: is the Report server port which is by default
+                            <code>80</code>.
+                        </p>
+                    </li>
+                    <li>
+                        <p><code class="codeph">reports/rwservlet?</code>: is static word.</p>
+                        <p><code class="codeph">MAPPING_KEY</code>: is the key name that you sepcified in previous steps. In
+                            our case it is: <code>test_key</code>.</p>
+                    </li>
+                    <li>
+                        <p><code class="codeph">RDF_REPORT_NAME</code>: is the <code>.rdf</code> report name. In our case it
+                            is: <code>test_1</code>.</p>
+                    </li>
+                    <li>
+                        <p><code class="codeph">REPORT_PARAMETER</code>: is the parameter name in <code>.rdf</code> report.
+                            For example: <code>P_EMP_ID</code>.</p>
+                    </li>
+                    <li>
+                        <p><code class="codeph">VALUE</code>: is the parameter passed value. It is the APEX Page item. For
+                            example: <code>P10_EMP_ID</code>.</p>
+                    </li>
+                </ul>
+                <p>The URL in our case will be:</p>
+                <pre>http://10.10.0.100:80/reports/rwservlet?test_key&report=test_1&P_EMP_ID='+$v('P10_EMP_ID'));</pre>
+                <p>To call the report URL from APEX do the following:
+                <ul>
+                    <li>
+                        Create a buttin in the APEX Page where you want to run the report and give it a name. For example:
+                        <code>Print</code>.
+                    </li>
+                    <li>
+                        In the Page Property, Go to <code>Function and Global Variable Declaration</code> and add a
+                        Javascript Function to call the <code>.rdf report</code>. The Javascript Function will be be like
+                        below:
+                        <pre style="background-color: #ffffff;
+        color: #000;">
+    function runreport(){
+    window.open('http://10.10.0.100:80/reports/rwservlet?test_key&report=test_1&P_EMP_ID='+$v('P10_EMP_ID'));
+    }</pre>
+                    </li>
+                    <li>
+                        In the <code>Button</code> Property, go to <code>Behavior</code> and select <code>Redirect to URL
+    </code> from <code>Action</code> Property and specify the <code>Javascript Function Name</code>:
+                        <pre style="background-color: #ffffff;
+        color: #000;">javascript:runreport();</pre>
+                    </li>
+                </ul>
+                </p>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <p>This Manual is written by Abdulkareem Al-Badani</p>
+        <p>Contact information: <a href="badanikareem@gmail.com" style="color:white;">
+                badanikareem@gmail.com</a>.</p>
+    </footer>
+</body>
+
+</html>
+
